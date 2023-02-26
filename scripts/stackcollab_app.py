@@ -76,7 +76,7 @@ for row in mycursor:
 
    linkedin_bp = make_linkedin_blueprint( #linkedin
       client_id="860v4mkeeipykm",
-      client_secret=session.secret",
+      client_secret="dSuEAHyAxPXRqcu4",
       scope="r_emailaddress,r_liteprofile",
       redirect_url= "https://127.0.0.1:5000/swipe")
 
@@ -151,7 +151,7 @@ def matches():
 @app.route('/swipe', methods=['POST', 'GET'])
 def swipe():
    # Hardcoded test-user profile
-   profile = User.query.filter_by(user_id=80).first()
+   profile = User.query.first()
    
    # # Grab first user to test match with
    # target = User.query.first()
