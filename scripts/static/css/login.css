@@ -25,10 +25,12 @@
     font-size: 3em;
     font-weight: 700;
     line-height: 0.7em;
+
 }
 
 .title span {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -40,6 +42,8 @@
     border:1px solid rgb(235, 109, 69);
     cursor: pointer;
     border-radius: 1em;
+    text-decoration: none;
+    color: white;
 }
 
 .button:hover {

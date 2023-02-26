@@ -22,7 +22,7 @@ mycursor = conn.cursor()
 
 # Test Input for eventual Front-implementation
 
-mycursor.execute("DROP table matches")
+mycursor.execute("DROP table swipes")
 conn.commit()
 # # Run SQL for database
 # mycursor.execute("INSERT INTO Person (name, age) VALUES (%s,%s)", (user_name, user_age))

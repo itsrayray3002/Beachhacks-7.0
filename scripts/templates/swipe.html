@@ -34,6 +34,24 @@
                 <div class="bio">
                     <p>{{profile.bio}}</p>
                 </div>
+                <div class="projects">
+                    {% for project in projects %}
+                    <div class="project">
+                        <div class="project_name">
+                            <h3>{{project.name}}</h3>
+                        </div>
+                        <div class="project_description">
+                            <p>{{project.description}}</p>
+                        </div>
+                        <div class="project_language">
+                            <p>{{project.language}}</p>
+                        </div>
+                        <div class="project_link">
+                            <a href="{{project.html_url}}">Link</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
                 <div class="tags flex">
                     {% for tag in profile.tags %}
                     <div class="tag">
@@ -44,25 +62,27 @@
             </div>
         </div>
         <div class="buttons flex-row">
-            <div class="function" id="deny">
-                .deny()
+            <form action="/swipe" method="POST">
+                <div class="buttons_parent">
+                    <button type="submit" class="deny" name="match" value=".deny()">.deny()</button>
+                    <button type="submit" class="approve" name="match" value=".approve()">.approve()</button>
             </div>
-            <div class="function" id="approve">
-                .approve()
-            </div>
+
+            </form>
+
         </div>
         <div id="nav" class="flex-row">
             <div id="matches">
-                <a href="{{ url_for('matches') }}">Matches</a>
+                <a href="{{ url_for('matches') }}">🤝</a>
             </div>
             <div id="find">
-                <a href="{{ url_for('swipe') }}">Swipe</a>
+                <a href="{{ url_for('swipe') }}">✅</a>
             </div>
             <div id="profile">
-                <a href="{{ url_for('profile') }}">Profile</a>
+                <a href="{{ url_for('profile') }}">😄</a>
+                
             </div>
         </div>
-    </div>
     {% endblock %}
 </body>
 

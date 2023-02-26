@@ -1,22 +1,27 @@
-.buttons div {
-    padding: 1em;
+button {
     display: flex;
     justify-content: space-between;
     border-radius: 1.2em;
     border: 1px solid #FFB86C;
-    cursor: pointer;
     background-color: rgba(0, 0, 0, 0);
+    width: 4vw;
+    color: white;
+    width: fit-content;
+    padding: 1em;
+    cursor: pointer;
 }
 
-#deny:hover {
+.deny:hover {
     background-color: rgba(255, 100, 100, 0.1)
 }
 
-#approve:hover {
+.approve:hover {
     background-color: rgba(100, 255, 100, 0.1);
 }
 
-.buttons {
+.buttons .buttons_parent {
+    display: flex;
+    flex-direction: row;
     padding-top: 7vh;
     justify-content: space-around;
 }
@@ -26,7 +31,7 @@
     width: 90vw;
     height: 70vh;
     border-radius: 0 0 1.2em 1.2em;
-    background-image: linear-gradient(to bottom, #B6EBD8, #ADBBE0);
+    background-image: linear-gradient(to bottom, #D0C9FD, #1F07071d);
 }
 
 .info {

@@ -22,6 +22,7 @@
             <input type="textarea" name="bio" maxlength="240" placeholder="{{profile.bio}}">
             <input type="text" name="github" maxlength="80" placeholder="{{profile.github}}">
             <input type="submit" value="Save Changes">
+        </form>
 
     <div class="skills">
         {% for tag in tags %}
@@ -33,15 +34,17 @@
               
     <div id="nav" class="flex-row">
         <div id="matches">
-            <a href="{{ url_for('matches') }}">Matches</a>
+            <a href="{{ url_for('matches') }}">🤝</a>
         </div>
         <div id="find">
-            <a href="{{ url_for('swipe') }}">Swipe</a>
+            <a href="{{ url_for('swipe') }}">✅</a>
         </div>
         <div id="profile">
-            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('profile') }}">😄</a>
+            
         </div>
     </div>
+    
     {% endblock %}
 </body>
 

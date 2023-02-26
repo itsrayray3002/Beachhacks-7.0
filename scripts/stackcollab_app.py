@@ -1,5 +1,4 @@
-
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, session
 from flaskext.mysql import MySQL
 from flask_sqlalchemy import SQLAlchemy
 from flask import jsonify
@@ -7,13 +6,10 @@ import mysql.connector
 import secrets
 import pathlib
 from OpenSSL import SSL
+import requests
 
 
 from flask_dance.contrib.linkedin import make_linkedin_blueprint, linkedin # LINKEDIN
-
-#from flask_login import login_required, current_user, login_user
-#from flask_dance.consumer import OAuth2ConsumerBlueprint
-#rom flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -28,17 +24,16 @@ keyfile = pathlib.Path(__file__).parent / 'localhost-key.pem'
 
 context = (certfile, keyfile)
 
-# context = SSL.Context(SSL.TLSv1_2_METHOD)
-# context.use_certificate(certfile)
-# context.use_privatekey(keyfile)
+current_user = None
 
 class User(db.Model):
-   user_id = db.Column(db.Integer, primary_key=True) #readded
+   user_id = db.Column(db.Integer, primary_key=True)
    email = db.Column(db.String(120), unique=True)
    fname = db.Column(db.String(80), unique=False)
    age = db.Column(db.Integer, unique=False)
    bio = db.Column(db.String(240), unique=False)
    github = db.Column(db.String(80), unique=False)
+   tags = db.Column(db.String(450), unique=False)
 
    #new
    # tags = db.Column(db.String(240), unique=False)
@@ -79,11 +74,11 @@ mycursor.execute("SELECT * FROM User")
 for row in mycursor:
    print(row)
 
-linkedin_bp = make_linkedin_blueprint( #linkedin
-    client_id="860v4mkeeipykm",
-    client_secret="dSuEAHyAxPXRqcu4",
-    scope="r_liteprofile r_emailaddress",
-    redirect_url="https://127.0.0.1:5000/swipe")
+   linkedin_bp = make_linkedin_blueprint( #linkedin
+      client_id="860v4mkeeipykm",
+      client_secret=session.secret",
+      scope="r_emailaddress,r_liteprofile",
+      redirect_url= "https://127.0.0.1:5000/swipe")
 
 app.register_blueprint(linkedin_bp, url_prefix="/login") #linkedin
 
@@ -102,6 +97,8 @@ def login():
         return redirect(url_for("swipe"))
     else:
         return "Could not fetch email from LinkedIn."
+
+
 
 
 @app.route('/profile', methods=['POST', 'GET'])
@@ -137,53 +134,82 @@ def profile():
          if github == None:
             github = "N/A"
 
-         
-         user = User(email=request.form['email'], fname=fname, age=age, bio=bio, github=github)
-         try:
-            db.session.add(user)
-            db.session.commit()  # update the user in the database
-            return redirect('/')
-         except Exception as e:
-            printError(e)
-      else:
-         print("User found, updating! (sourced from profile)")
-         if request.form['fname'] != "":
-            user.fname = request.form['fname']
+      return render_template("index.html")
 
-         if request.form['age'] != "":
-            user.age = request.form['age']
-
-         if request.form['bio'] != "":
-            user.bio = request.form['bio']
-
-         if request.form['github'] != "":
-            user.github = request.form['github']
-
-         try:
-            db.session.commit()  # update the user in the database
-            return redirect('/')
-         except Exception as e:
-            printError(e)
    else:
         profile = {'email': 'E-Mail', 'fname': 'Name', 'age': 'Age', 'bio': 'Bio', 'github': 'GitHub Username', 'tags': ['tag1', 'tag2', 'tag3']}
-        return render_template("profile.html", profile=profile, tags=tags)
+        return render_template("profile.html", profile=profile)
 
 @app.route('/matches', methods=['GET'])
 def matches():
    profile = User.query.first()
    return render_template("matches.html", profile=profile)
    
+
+
+
 @app.route('/swipe', methods=['POST', 'GET'])
 def swipe():
    # Hardcoded test-user profile
    profile = User.query.filter_by(user_id=80).first()
-
-   # Grab first user to test match with
+   
+   # # Grab first user to test match with
+   # target = User.query.first()
+   # matched = Swipes(user_id = profile.user_id, email = profile.email, target=None)
+   # if request.method == 'POST':
+   #    mycursor.execute("USE sql_test")
+   #    mycursor.execute("SELECT * FROM user")
+   #    users = mycursor.fetchall()
+   #    for user in users:
+   #       target = user
+   #       render_template("swipe.html", profile=target)
+   #       if request.form['match'] == '.approve()':
+   #          matched.target = target.user_id
+   #          print("Pressed approve")
+   #       else:
+   #          matched.target = None
+   #          print("Pressed disapprove")
+   #       mycursor.execute("SELECT * FROM swipes")
+   #       db.session.add(matched)
+   #       db.session.commit()
+   #       mycursor.execute("SELECT * FROM user")
    target = User.query.first()
-   matched = Swipes(profile.user_id, profile.email, None)
+   matched = Swipes(user_id=profile.user_id, email=profile.email, target=None)
+
    if request.method == 'POST':
+      users = mycursor.fetchall()
+
+      for user in users:
+         target = user
+         render_template("swipe.html", profile=target)
+         
+         if request.form['match'] == 'approve':
+            matched.target = target.user_id
+            print("Pressed approve")
+         elif request.form['match'] == 'deny':
+            matched.target = None
+            print("Pressed disapprove")
+         
+      mycursor.execute("SELECT * FROM swipes")
+      db.session.add(matched)
+      db.session.commit()
+
+         
+      data = requests.get("https://api.github.com/users/"+target.github+"/repos").json()
+      projects = []
+
+      for item in data:
+         project = {
+            "name": item["name"],
+            "description": item["description"],
+            "html_url": item["html_url"],
+            "language": item["language"]
+         }
+
+         projects.append(project)
+
       user = User.query.first() # TODO: replace with current user
-      return render_template("swipe.html", profile=target)
+      return render_template("swipe.html", profile=target, projects=projects[:2])
    #    if user is None:
    #       print("User not found, creating! (sourced from swipe)")
    #       user = User(email=request.form['email'], fname=request.form['fname'], age=request.form['age'], bio=request.form['bio'], github=request.form['github'])
@@ -208,14 +234,6 @@ def swipe():
    #          printError(e)
    else:
       return render_template("swipe.html", profile=target)
-      approved = request.form['approved']
-      if approved:
-         matched.target = target.user_id
-         db.session.add(matched)
-         db.session.commit()
-      else:
-         # TODO: find the next USER
-         pass
 
    def is_matched(cur_user): 
       mycursor.execute("SELECT user_id")

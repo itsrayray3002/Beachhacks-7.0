@@ -18,12 +18,8 @@
                     <span>STACK</span>
                     <span class="collab">COLLAB</span>
                 </div>
-                <a href="{{ url_for('swipe') }}">
-                    <img src="https://content.linkedin.com/content/dam/developer/global/en_US/site/img/signin-button.png">
-                </a>
                 
-            <div id="linkedInButton" class="button">Sign in with LinkedIn</div>
-            <a href="{{ url_for('profile') }}">Link to Profile</a>
+            <a href="{{ url_for('linkedin.login') }}" id="linkedInButton" class="btn btn-primary button">Login with LinkedIn</a>
 
         </div>
         <div class="footer">
@@ -33,8 +29,4 @@
         </div>
     </div>
 </body>
-
-
-
-<script src="login.js"></script>
 </html>
