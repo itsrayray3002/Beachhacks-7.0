@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-
+:root {
+    --p-size: 2vmin;
+}
 
 body {
     font-family: 'Ubuntu Mono', monospace;
     background-color: white;
     color: white;
+    font-size: 100%;
 }
 
 * {
@@ -25,10 +28,29 @@ body {
 }
 
 #nav div {
+    height: 10vh;
     display: flex;
     justify-content: space-between;
-    background-color: #2b2b3b;
     width: calc(100%/3);
+    text-align: center;
+    justify-content: center;
+}
+
+#nav div a {
+    text-decoration: none;
+    background-color: #2b2b3b;
+    color: #FFB86C;
+    width: 100%;
+    height: 100%;
+}
+
+#nav div a:hover {
+    background-color: #FFB86C;
+    color: #20202D;
+}
+
+.matches a {
+    border-top-left-radius: 1em;
 }
 
 .flex {
@@ -38,6 +60,11 @@ body {
 .flex-column {
     display: flex;
     flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
 }
 
 .function {

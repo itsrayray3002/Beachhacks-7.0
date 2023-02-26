@@ -8,14 +8,6 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-#deny:hover {
-    background-color: rgba(255, 100, 100, 0.1)
-}
-
-#approve:hover {
-    background-color: rgba(100, 255, 100, 0.1);
-}
-
 .buttons {
     padding-top: 7vh;
     justify-content: space-around;
@@ -73,4 +65,21 @@
 .profile_picture img {
     width: 5em;
     border-radius: 100%;
+}
+
+.skills {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 85vw;
+}
+
+
+.skills .tag {
+    border-radius: 1em;
+    padding: 0.75em;
+    border: 1px solid #E9E010;
+    margin: 0.5em;
+    background-color: rgba(55, 54, 91, 0.65);
+    width: fit-content;
 }

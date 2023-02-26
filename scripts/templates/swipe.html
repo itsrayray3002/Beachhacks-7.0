@@ -2,24 +2,24 @@
 <html lang="en">
 
 <head>
-    {% block head %} 
+    {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swipe</title>
     <link rel="stylesheet" href="../static/css/main.css">
     <link rel="stylesheet" href="../static/css/swipe.css">
-    {% endblock %} 
+    {% endblock %}
 </head>
 
 <body>
-    {% block body %} 
+    {% block body %}
     <div class="window">
         <div class="profile flex-column">
 
-            <div class="profile_header flex">
+            <div class="profile_header flex-row">
                 <div class="name">
-                    <h1>{{profile.name}}</h1>
+                    <h1>{{profile.fname}}</h1>
                 </div>
                 <div class="profile_picture">
                     <img
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="buttons flex">
+        <div class="buttons flex-row">
             <div class="function" id="deny">
                 .deny()
             </div>
@@ -51,21 +51,19 @@
                 .approve()
             </div>
         </div>
-        <div id="nav" class="flex">
+        <div id="nav" class="flex-row">
             <div id="matches">
-                <span>^-^</span>
+                <a href="{{ url_for('matches') }}">Matches</a>
             </div>
             <div id="find">
-                <span>
-                    owo
-                </span>
+                <a href="{{ url_for('swipe') }}">Swipe</a>
             </div>
             <div id="profile">
-                <span>o{</span>
+                <a href="{{ url_for('profile') }}">Profile</a>
             </div>
         </div>
     </div>
-{% endblock %} 
+    {% endblock %}
 </body>
 
 </html>

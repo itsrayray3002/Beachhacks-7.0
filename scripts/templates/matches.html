@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profiles</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/matches.css">
+</head>
+
+<body>
+    {% for profile in matches %}
+    <div class="profile">
+        <div class="profile-pic">
+            <img src="https://placehold.it/150x150" alt="Profile picture">
+        </div>
+        <div class="profile-info">
+            <h2>{{profile.fname}}</h2>
+            {% for tag in tags %}
+            <div class="tags">
+                <span class="tag">{{tag}}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <!-- Add more profiles as needed -->
+        <div id="nav" class="flex-row">
+            <div id="matches">
+                <a href="{{ url_for('matches') }}">Matches</a>
+            </div>
+            <div id="find">
+                <a href="{{ url_for('swipe') }}">Swipe</a>
+            </div>
+            <div id="profile">
+                <a href="{{ url_for('profile') }}">Profile</a>
+            </div>
+        </div>
+</body>
+
+</html>

@@ -2,42 +2,47 @@
 <html lang="en">
 
 <head>
-    {% block head %} 
+    {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swipe</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="../static/css/main.css">
-    <link rel="stylesheet" href="../static/css/swipe.css">
-    {% endblock %} 
+    <link rel="stylesheet" href="../static/css/profile.css">
+    {% endblock %}
 </head>
 
 <body>
-    {% block body %} 
+    {% block body %}
     <div class="window">
-        <form action="/" method="POST">
-            <input type="text" name="email" placeholder="{{profile.email}}">
-            <input type="text" name="fname" placeholder="{{profile.fname}}">
+        <form action="/profile" method="POST">
+            <input type="text" name="email" maxlength="120" placeholder="{{profile.email}}">
+            <input type="text" name="fname" maxlength="80" placeholder="{{profile.fname}}">
             <input type="number" name="age" placeholder="{{profile.age}}">
-            <input type="text" name="bio" placeholder="{{profile.bio}}">
-            <input type="text" name="github" placeholder="{{profile.github}}">
+            <input type="textarea" name="bio" maxlength="240" placeholder="{{profile.bio}}">
+            <input type="text" name="github" maxlength="80" placeholder="{{profile.github}}">
             <input type="submit" value="Save Changes">
-        <div id="nav" class="flex">
-            <div id="matches">
-                <span>^-^</span>
-            </div>
-            <div id="find">
 
-                <span>
-                    owo
-                </span>
+    <div class="skills">
+        {% for tag in tags %}
+            <div class="tag" data-selected="true">
+            <span>{{tag}}</span>
             </div>
-            <div id="profile">
-                <span>o{</span>
-            </div>
+        {% endfor %}
+    </div>
+              
+    <div id="nav" class="flex-row">
+        <div id="matches">
+            <a href="{{ url_for('matches') }}">Matches</a>
+        </div>
+        <div id="find">
+            <a href="{{ url_for('swipe') }}">Swipe</a>
+        </div>
+        <div id="profile">
+            <a href="{{ url_for('profile') }}">Profile</a>
         </div>
     </div>
-{% endblock %} 
+    {% endblock %}
 </body>
 
 </html>
