@@ -24,13 +24,15 @@ mycursor = conn.cursor()
 user_name = input("Input your Name: ")
 user_age = int(input("Input your Age:"))
 
-# Run SQL for database
-mycursor.execute("INSERT INTO Person (name, age) VALUES (%s,%s)", (user_name, user_age))
-
-# Commit changes from SQL command to database
+mycursor.execute("DROP table person")
 conn.commit()
+# # Run SQL for database
+# mycursor.execute("INSERT INTO Person (name, age) VALUES (%s,%s)", (user_name, user_age))
 
-mycursor.execute("SELECT * from Person")
+# # Commit changes from SQL command to database
+# conn.commit()
 
-for x in mycursor:
-  print(x)
+# mycursor.execute("SELECT * from Person")
+
+# for x in mycursor:
+#   print(x)
