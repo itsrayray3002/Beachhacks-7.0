@@ -18,13 +18,11 @@ mycursor = conn.cursor()
 
 
 # Creates the client table for APP
-# mycursor.execute("CREATE TABLE Person (name VARCHAR(50), age smallint, userID int PRIMARY KEY AUTO_INCREMENT)")
+ # mycursor.execute("CREATE TABLE userID int PRIMARY KEY AUTO_INCREMENT, Person (name VARCHAR(50), age smallint, bio VARCHAR(300), ")
 
 # Test Input for eventual Front-implementation
-user_name = input("Input your Name: ")
-user_age = int(input("Input your Age:"))
 
-mycursor.execute("DROP table person")
+mycursor.execute("DROP table user")
 conn.commit()
 # # Run SQL for database
 # mycursor.execute("INSERT INTO Person (name, age) VALUES (%s,%s)", (user_name, user_age))

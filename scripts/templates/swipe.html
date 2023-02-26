@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    {% block head %} 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swipe</title>
     <link rel="stylesheet" href="../static/css/main.css">
     <link rel="stylesheet" href="../static/css/swipe.css">
+    {% endblock %} 
 </head>
+
 <body>
+    {% block body %} 
     <div class="window">
-        <div class="profile flex">
-            <div class="slides">
-            </div>
-            <div class="info flex-column">
+        <div class="profile flex-column">
+
+            <div class="profile_header flex">
                 <div class="name">
                     <h1>{{profile.name}}</h1>
                 </div>
+                <div class="profile_picture">
+                    <img
+                        src="https://media.discordapp.net/attachments/964701406932107276/1079198375343304826/20230224_204554.jpg">
+                </div>
+            </div>
+            <div class="slides"></div>
+            <div class="info flex-column">
                 <div class="age">
                     <h2>{{profile.age}} years</h2>
                 </div>
@@ -24,14 +35,12 @@
                     <p>{{profile.bio}}</p>
                 </div>
                 <div class="tags flex">
+                    {% for tag in profile.tags %}
                     <div class="tag">
-                        <p>{{profile.tag}}</p>
+                        <span class="tag_text">{{tag}}</span>
                     </div>
+                    {% endfor %}
                 </div>
-            </div>
-
-            <div class="profile_picture">
-                <img src="https://media.discordapp.net/attachments/964701406932107276/1079198375343304826/20230224_204554.jpg">
             </div>
         </div>
         <div class="buttons flex">
@@ -47,12 +56,16 @@
                 <span>^-^</span>
             </div>
             <div id="find">
-                <span><3</span>
+                <span>
+                    owo
+                </span>
             </div>
             <div id="profile">
                 <span>o{</span>
             </div>
         </div>
     </div>
+{% endblock %} 
 </body>
+
 </html>
