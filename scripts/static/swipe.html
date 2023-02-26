@@ -10,21 +10,45 @@
 </head>
 <body>
     <div class="window">
-        <div class="profile">
-            <div class="info">
+        <div class="profile flex">
+            <div class="info flex-column">
                 <div class="name">
                     <h1>{{name}}</h1>
                 </div>
                 <div class="age">
                     <h2>{{age}} years</h2>
                 </div>
-        </div>
-        <div class="buttons">
-            <div id="deny">
-                Deny
+                <div class="bio">
+                    <p>{{bio}}</p>
+                </div>
+                <div class="tags flex">
+                    <div class="tag">
+                        <p>{{tag}}</p>
+                    </div>
+                </div>
             </div>
-            <div id="approve">
-                Approve
+
+            <div class="profile_picture">
+                <img src="https://media.discordapp.net/attachments/964701406932107276/1079198375343304826/20230224_204554.jpg">
+            </div>
+        </div>
+        <div class="buttons flex">
+            <div class="function" id="deny">
+                .deny()
+            </div>
+            <div class="function" id="approve">
+                .approve()
+            </div>
+        </div>
+        <div id="nav" class="flex">
+            <div id="matches">
+                <span>^-^</span>
+            </div>
+            <div id="find">
+                <span><3</span>
+            </div>
+            <div id="profile">
+                <span>o{</span>
             </div>
         </div>
     </div>
